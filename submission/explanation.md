@@ -1,5 +1,3 @@
-# 2022-NeurIPS-Driving-SMARTS-Competition
-
 # Explanation
 This markdown file describes our algorithm used and training process for **Track 1**.
 
@@ -21,13 +19,13 @@ We use the Reinforment Learning algorithm for **online-learning** in the Track 1
 ## Model Structure
 We use D3QN(Dueling Double Deep Q Network) algorithm to learn a agent in this competition. D3QN is an improvement over the DQN(Deep Q Network). D3QN algorithm combines the ideas of Double DQN and Dueling DQN algorithms to further improve the performance of the algorithm. D3QN algorithm only has a Value Network, which gets a state/observation as input, and outputs the Q-Value of every action corresponding to the input state. The model structure of dueling network is shown in the Figure 1. 
 
-![D3QN](./submission/docs/D3QN.png)
+![D3QN](./docs/D3QN.png)
 
 The dueling network consists of two streams that represent the value and advantage functions, while sharing a common convolutional feature learning module. In our work, the Value Network is mainly composed of three parts: Feature Extractor, Advantage Head, and Value Head. 
 
 The Feature Extractor get a state as input, and then output the a feature vetor corresponding to the state. The structure of the Feature Extractor is shown in the Figure 2.
 
-![FeatureExtractor](./submission/docs/FeatureExtractor.png)
+![FeatureExtractor](./docs/FeatureExtractor.png)
 
 The input data of the Feature Extractor contains three frames of states, which are the state of the current step and the states of the previous two steps. The state of each single frame cosists of three kinds of data: rgb, goal distance and goal heading. Both goal distance and goal heading are a scalar. The rgb is a RGB image with a size of $3\times112\times112$, then we get the input rgb data with a size of $3\times 3\times112\times112$. We use **3D CNN** to extract the image feature of the three frame rgb data. The 3D CNN uses successive multiple frames as input, which increases the information of the time dimension and can extract more expressive features. The image feature vector is concatenated with the goal distance and goal heading vector, and then the concatenated vector input to a fully connected layer to output a feature vector.
 
